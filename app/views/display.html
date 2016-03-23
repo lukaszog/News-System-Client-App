@@ -1,0 +1,45 @@
+<div class="jumbotron">
+  <article class="post" style="overflow: hidden">
+    <div class="post-preview col-xs-10  no-gutter">
+      <h2>{{news.title}}</h2>
+
+      <p>{{news.text}} </p>
+
+      <p class="meta">
+        {{news.author}}  -- {{news.data}}
+      </p>
+    </div>
+  </article>
+</div>
+
+<!-- Comments Form -->
+<div class="well">
+  <h4>Leave a Comment:</h4>
+  <form role="form">
+    <div class="form-group">
+      <textarea class="form-control" rows="3"></textarea>
+    </div>
+    <button type="submit" class="btn btn-primary">Submit</button>
+  </form>
+</div>
+
+<hr>
+
+
+<div ng-controller="CommentController">
+
+  <div ng-repeat="comm in comments">
+
+  <div class="media">
+
+    <div class="media-body">
+      <h4 class="media-heading">{{comm.author}}
+        <small>{{comm.data}}</small>
+      </h4>
+      {{comm.comment}}
+    </div>
+  </div>
+
+  </div>
+
+</div>
