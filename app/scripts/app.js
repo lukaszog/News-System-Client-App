@@ -30,10 +30,10 @@ angular
         controller: 'NewsDisplayController',
         controllerAs: 'displaydash'
       })
-      .when('/about', {
-        templateUrl: 'views/about.html',
-        controller: 'AboutCtrl',
-        controllerAs: 'about'
+      .when('/add', {
+        templateUrl: 'views/add.html',
+        controller: 'NewsController',
+        controllerAs: 'newsdashboard'
       })
       .otherwise({
         redirectTo: '/'

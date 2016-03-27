@@ -6,6 +6,9 @@ angular.module('RESTService', [])
 .controller('NewsController', function(NewsModel){
 
   var newsdashboard = this;
+  var comm = this;
+  var data = new Date().toLocaleString();
+
   function getNews(){
     path = 'getNews/';
     NewsModel.all().then(function(result){
@@ -15,11 +18,26 @@ angular.module('RESTService', [])
   }
   newsdashboard.news = [];
   getNews();
+
+  function createNews(news){
+    NewsModel.create(angular.extend({},
+      {data: data},news)).then(function (result){
+      initCreateForm();
+    })
+  }
+
+  function initCreateForm(){
+    comm.newComm = { title: '', text: '', author: ''};
+  }
+
+  newsdashboard.createNews = createNews;
+
+
 })
   .controller('NewsDisplayController',
     function($scope, $routeParams, NewsModel){
 
-    //  var displaydash = this;
+      var displaydash = this;
       var newsId = $routeParams.id;
 
 
@@ -36,6 +54,23 @@ angular.module('RESTService', [])
 
       var newsId = $routeParams.id;
       path = 'getCommetnsByNewsId/'+newsId;
+
+      var comm = this;
+
+      var data = new Date().toLocaleString();
+
+      $scope.createComm = function(comment){
+        console.log("Tworze komentarz");
+        NewsModel.createComment(angular.extend({},
+          {data: data, newsId: newsId}, comment)).then(function (result){
+          initCreateComm();
+
+
+        })
+      }
+      function initCreateComm(){
+        comm.newComm = { comment: '', author: ''};
+      }
 
       NewsModel.getCommentById().then(function (result){
         $scope.comments = result.data;
@@ -68,5 +103,10 @@ angular.module('RESTService', [])
     service.create = function(news){
       return $http.post(getUrl(),news);
     }
+
+    service.createComment = function(comment){
+      return $http.post(getUrl(),comment);
+    }
+
 
   });
