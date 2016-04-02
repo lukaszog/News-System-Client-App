@@ -3,7 +3,7 @@
 var path = '';
 
 angular.module('RESTService', [])
-.controller('NewsController', function(NewsModel){
+.controller('NewsController', function($scope, NewsModel){
 
   var newsdashboard = this;
   var comm = this;
@@ -23,6 +23,23 @@ angular.module('RESTService', [])
     NewsModel.create(angular.extend({},
       {data: data},news)).then(function (result){
       initCreateForm();
+      newsdashboard.news = result.data;
+
+      $scope.showData = true;
+      $scope.resultMessage = result.data;
+
+      console.log("Info: " + newsdashboard.news.message);
+
+      if(newsdashboard.news.message == "Error")
+      {
+        $scope.showData = true;
+      }
+      else
+      {
+        $scope.showData = false;
+        $scope.showOk = true;
+      }
+
     })
   }
 
@@ -64,7 +81,7 @@ angular.module('RESTService', [])
         NewsModel.createComment(angular.extend({},
           {data: data, newsId: newsId}, comment)).then(function (result){
           initCreateComm();
-
+          $scope.getComments();
 
         })
       }
@@ -72,11 +89,13 @@ angular.module('RESTService', [])
         comm.newComm = { comment: '', author: ''};
       }
 
-      NewsModel.getCommentById().then(function (result){
-        $scope.comments = result.data;
-        console.log($scope.comments);
-      });
-
+      $scope.getComments = function() {
+        NewsModel.getCommentById().then(function (result) {
+          $scope.comments = result.data;
+          console.log($scope.comments);
+        });
+      };
+      $scope.getComments();
     })
   .constant('ENDPOINT_URI', 'http://localhost:8080/api/news/')
   .service('NewsModel', function($http, ENDPOINT_URI){
