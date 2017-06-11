@@ -1,7 +1,12 @@
+<div ng-if="tagdisplay">
+  <h2>Wyswietlam dla tagu: <i>{{tagname}} ({{item_size}})</i></h2>
+</div>
+
+
 <div class="jumbotron" ng-repeat="newspost in newsdashboard.news">
   <article class="post" style="overflow: hidden">
     <div class="post-preview col-xs-10  no-gutter">
-      <h2><a ng-href="/#/displaynews/{{newspost.id}}"> {{newspost.title}} </a></h2>
+      <h2><a ng-href="#!/displaynews/{{newspost.id}}"> {{newspost.title}} </a></h2>
 
       <p>{{newspost.text}} </p>
 
@@ -9,5 +14,11 @@
         {{newspost.author}}  -- {{newspost.data}}
       </p>
     </div>
+
+
   </article>
+  <div style="display: inline; color: #9d9d9d; font-style: italic" ng-repeat="tag in newspost.categoryList">
+    <a ng-href="#!/tag/{{tag.text}}">{{tag.text}}</a>
+  </div>
+
 </div>

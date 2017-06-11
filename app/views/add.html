@@ -33,6 +33,12 @@
              ng-model="newsdashboard.newNews.text"
              placeholder="Treść"> </textarea>
     </div>
+    <div class="form-group">
+      <label>Tagi (oddziel przecinkiem)</label>
+      <tags-input ng-model="newsdashboard.newNews.categoryList">
+        <auto-complete></auto-complete>
+      </tags-input>
+    </div>
     <button type="submit" class="btn btn-info btn-lg">Wyślij</button>
   </form>
 </div>

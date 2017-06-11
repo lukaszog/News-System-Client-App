@@ -16,7 +16,8 @@ angular
     'ngRoute',
     'ngSanitize',
     'ngTouch',
-    'RESTService'
+    'RESTService',
+    'ngTagsInput'
   ])
   .config(function ($routeProvider) {
     $routeProvider
@@ -30,6 +31,11 @@ angular
         controller: 'NewsDisplayController',
         controllerAs: 'displaydash'
       })
+      .when('/tag/:id',{
+        templateUrl: 'views/main.html',
+        controller: 'NewsController',
+        controllerAs: 'newsdashboard'
+      })
       .when('/add', {
         templateUrl: 'views/add.html',
         controller: 'NewsController',
@@ -38,4 +44,7 @@ angular
       .otherwise({
         redirectTo: '/'
       });
-  });
+  })
+  .config(['$qProvider', function ($qProvider) {
+  $qProvider.errorOnUnhandledRejections(false);
+}]);
