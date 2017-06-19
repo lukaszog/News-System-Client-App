@@ -342,6 +342,7 @@ angular.module('RESTService', [])
     }
 
     service.all = function(){
+      console.log("robie get na newsy" + getUrl());
       return $http.get(getUrl());
     };
 
