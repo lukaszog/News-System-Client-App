@@ -41,8 +41,7 @@ angular
       .when('/add', {
         templateUrl: 'views/add.html',
         controller: 'NewsController',
-        controllerAs: 'newsdashboard',
-        auth: true
+        controllerAs: 'newsdashboard'
       })
       .when('/login', {
         templateUrl: 'views/login.html',
